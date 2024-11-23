@@ -16,12 +16,10 @@ from tools.env import prepare_env
 
 prepare_env()
 
-from tools.config import CCConfig
+from tools.config import cc_root_config
 from tools.i18n import i18n
 
 console = Console()
-
-cc_root_config = CCConfig()
 
 # read command line arguments
 args = sys.argv
@@ -29,6 +27,7 @@ parser = argparse.ArgumentParser(description=i18n("description"))
 
 
 # CCRoot supports commands:
+# init      [] initialize the project
 # config    [] set target platform and compiler tools etc.
 # search    [] search a package
 # add       [] add a package into libs
@@ -38,15 +37,51 @@ parser = argparse.ArgumentParser(description=i18n("description"))
 
 
 def cc_help():
-    console.print("CCRoot is a package manager for C/C++ projects.", style="bold")
-    console.print("Usage: ccroot {command} {--options}", style="bold")
-    console.print("Commands:", style="bold")
-    console.print("  config    [] set target platform and compiler tools etc.", style="bold")
-    console.print("  search    [] search a package", style="bold")
-    console.print("  add       [] add a package into libs", style="bold")
-    console.print("  remove    [] remove a package from libs", style="bold")
-    console.print("  build     [] build the specific package or all packages and the project source code", style="bold")
-    console.print("  help      [] show help", style="bold")
+    if len(args) < 2 or (len(args) == 2 and args[1] == "help"):
+        console.print("CCRoot is a package manager for C/C++ projects.", style="bold")
+        console.print("Usage: 'ccroot {command} {--options}'", style="bold")
+        console.print("Commands:", style="bold")
+        console.print("  config    [] set target platform and compiler tools etc.", style="bold")
+        console.print("  search    [{lib}@{version}] search a package", style="bold")
+        console.print("  add       [] add a package into libs", style="bold")
+        console.print("  remove    [] remove a package from libs", style="bold")
+        console.print("  build     [] build the specific package or all packages and the project source code", style="bold")
+        console.print("  help      [] show help", style="bold")
+        console.print("Run 'ccroot help {command}' for more information on a command.", style="bold")
+    elif len(args) == 3:
+        if args[2] == "config":
+            console.print("Usage: ccroot config {--options}", style="bold")
+            console.print("Options:", style="bold")
+            console.print("  --platform    [] set the target platform", style="bold")
+            console.print("  --compiler    [] set the compiler tools", style="bold")
+            console.print("  --arch        [] set the target architecture", style="bold")
+            console.print("  --toolchain   [] set the toolchain", style="bold")
+            console.print("  --build       [] set the build type", style="bold")
+            console.print("  --install     [] set the install path", style="bold")
+        elif args[2] == "init":
+            console.print("Usage: ccroot init", style="bold")
+        elif args[2] == "search":
+            console.print("Usage: ccroot search {lib}@{version}", style="bold")
+            console.print("Options:", style="bold")
+            console.print("  lib           [] the package name", style="bold")
+            console.print("  version       [] the package version", style="bold")
+        elif args[2] == "add":
+            console.print("Usage: ccroot add {lib}@{version}", style="bold")
+            console.print("Options:", style="bold")
+            console.print("  lib           [] the package name", style="bold")
+            console.print("  version       [] the package version", style="bold")
+        elif args[2] == "remove":
+            console.print("Usage: ccroot remove {lib}@{version}", style="bold")
+            console.print("Options:", style="bold")
+            console.print("  lib           [] the package name", style="bold")
+            console.print("  version       [] the package version", style="bold")
+        elif args[2] == "build":
+            console.print("Usage: ccroot build {lib}@{version}", style="bold")
+            console.print("Options:", style="bold")
+            console.print("  lib           [] the package name", style="bold")
+            console.print("  version       [] the package version", style="bold")
+        else:
+            cc_help()
     sys.exit(0)
 
 
@@ -57,10 +92,7 @@ if len(args) < 2:
 cc_command = args[1]
 
 if cc_command == "config":
-    from tools.config import CCConfig
-
-    cc_config = CCConfig()
-    cc_config.config()
+    cc_root_config()
 elif cc_command == "search":
     from tools.packages import search_package
 
