@@ -1,0 +1,90 @@
+#!python
+import sys
+import os
+import argparse
+from rich.console import Console
+
+# check the current python version is python3
+if sys.version_info[0] < 3:
+    print("CCRoot requires Python 3.x")
+    # run install.sh in the script directory
+    os.system("sh " + os.path.dirname(os.path.dirname(__file__)) + "/scripts/install.sh")
+
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+from tools.env import prepare_env
+
+prepare_env()
+
+from tools.config import CCConfig
+from tools.i18n import i18n
+
+console = Console()
+
+cc_root_config = CCConfig()
+
+# read command line arguments
+args = sys.argv
+parser = argparse.ArgumentParser(description=i18n("description"))
+
+
+# CCRoot supports commands:
+# config    [] set target platform and compiler tools etc.
+# search    [] search a package
+# add       [] add a package into libs
+# remove    [] remove a package from libs
+# build     [] build the specific package or all packages and the project source code
+# help      [] show help
+
+
+def cc_help():
+    console.print("CCRoot is a package manager for C/C++ projects.", style="bold")
+    console.print("Usage: ccroot {command} {--options}", style="bold")
+    console.print("Commands:", style="bold")
+    console.print("  config    [] set target platform and compiler tools etc.", style="bold")
+    console.print("  search    [] search a package", style="bold")
+    console.print("  add       [] add a package into libs", style="bold")
+    console.print("  remove    [] remove a package from libs", style="bold")
+    console.print("  build     [] build the specific package or all packages and the project source code", style="bold")
+    console.print("  help      [] show help", style="bold")
+    sys.exit(0)
+
+
+# check if the command is valid
+if len(args) < 2:
+    cc_help()
+
+cc_command = args[1]
+
+if cc_command == "config":
+    from tools.config import CCConfig
+
+    cc_config = CCConfig()
+    cc_config.config()
+elif cc_command == "search":
+    from tools.packages import search_package
+
+    if len(args) < 3:
+        console.print("Please input the package name to search.", style="bold")
+        sys.exit(0)
+    search_package(search_package_name=args[2])
+
+elif cc_command == "add":
+    from tools.packages import CCAdd
+
+    cc_add = CCAdd()
+    cc_add.add()
+elif cc_command == "remove":
+    from tools.packages import CCRemove
+
+    cc_remove = CCRemove()
+    cc_remove.remove()
+elif cc_command == "build":
+    from tools.build import CCBuild
+
+    cc_build = CCBuild()
+    cc_build.build()
+elif cc_command == "help":
+    cc_help()
+else:
+    cc_help()

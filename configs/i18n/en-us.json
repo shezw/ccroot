@@ -1,0 +1,6 @@
+{
+  "ccroot": "CCROOT",
+  "description": "A tool for comiple c/cpp projects.",
+  "welcome": "Welcome to CCROOT!",
+  "start": "Start to config"
+}

@@ -1,0 +1,6 @@
+{
+  "ccroot": "CCROOT",
+  "description": "C/CPP的编译工具",
+  "welcome": "欢迎使用C/CPP的编译工具",
+  "start": "开始配置"
+}

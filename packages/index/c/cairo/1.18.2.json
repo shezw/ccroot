@@ -1,0 +1,24 @@
+{
+  "url": "https://www.cairographics.org/releases/cairo-1.18.2.tar.xz",
+  "ext": "tar.xz",
+  "name": "cairo",
+  "version": "1.16.0",
+  "tools": {
+    "configure": {
+        "prepare": "",
+        "options": {
+        }
+    },
+    "meson": {
+
+    }
+  },
+  "deps": {
+    "libpng": "1.6.37",
+    "pixman": "0.38.4",
+    "freetype": "2.10.0",
+    "fontconfig": "2.13.1",
+    "glib": "2.62.0",
+    "harfbuzz": "2.6.1"
+  }
+}

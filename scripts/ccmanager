@@ -1,0 +1,16 @@
+#!python
+
+# create 26 folders in packages/index , each name is from a to z
+
+import os
+import shutil
+
+
+def create_index():
+    for i in range(26):
+        folder = chr(ord('a') + i)
+        if not os.path.exists(f"packages/index/{folder}"):
+            os.makedirs(f"packages/index/{folder}")
+
+
+create_index()
