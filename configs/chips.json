@@ -1,0 +1,17 @@
+{
+  "ssd202": {
+    "arch": "arm",
+    "eabi": "eabihf"
+  },
+  "t113-s3": {
+    "arch": "arm",
+    "eabi": ["eabi","eabihf"]
+  },
+  "h616": {
+    "arch": "aarch64",
+    "eabi": ""
+  },
+  "esp32s3": {
+
+  }
+}

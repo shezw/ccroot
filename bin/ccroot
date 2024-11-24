@@ -53,11 +53,6 @@ def cc_help():
             console.print("Usage: ccroot config {--options}", style="bold")
             console.print("Options:", style="bold")
             console.print("  --platform    [] set the target platform", style="bold")
-            console.print("  --compiler    [] set the compiler tools", style="bold")
-            console.print("  --arch        [] set the target architecture", style="bold")
-            console.print("  --toolchain   [] set the toolchain", style="bold")
-            console.print("  --build       [] set the build type", style="bold")
-            console.print("  --install     [] set the install path", style="bold")
         elif args[2] == "init":
             console.print("Usage: ccroot init", style="bold")
         elif args[2] == "search":
@@ -90,6 +85,16 @@ if len(args) < 2:
     cc_help()
 
 cc_command = args[1]
+
+# check if user is input at ccroot path
+# if yes, abort the command and suggest to use ccroot command in the project root path
+
+if os.path.basename(os.getcwd()) == "ccroot":
+    console.print("Please run the command in the project root path. ")
+    current_dir = os.getcwd()
+    console.print("Current Dir "+current_dir+" is not allowed.", style="bold")
+    sys.exit(0)
+
 
 if cc_command == "config":
     cc_root_config()

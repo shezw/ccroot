@@ -3,5 +3,6 @@
     {"id": 2, "title": "Linux", "value": "linux", "comment": "Linux system"},
     {"id": 3, "title": "MacOS", "value": "mac", "comment": "MacOS system"},
     {"id": 4, "title": "Android", "value": "android", "comment": "Android system"},
-    {"id": 5, "title": "iOS", "value": "ios", "comment": "iOS system"}
+    {"id": 5, "title": "iOS", "value": "ios", "comment": "iOS system"},
+    {"id": 6, "title": "host", "value": "host", "comment": "Auto check on your system"}
 ]

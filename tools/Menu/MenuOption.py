@@ -10,3 +10,11 @@ class MenuOption:
     # menu option has a method to return a string representation of the option.
     def __str__(self):
         return f"[{self.id}] {self.title} ({self.value}) - {self.comment}"
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "value": self.value,
+            "comment": self.comment
+        }
