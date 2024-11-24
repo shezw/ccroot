@@ -4,21 +4,20 @@
   "name": "cairo",
   "version": "1.16.0",
   "tools": {
-    "configure": {
+    "meson": {
         "prepare": "",
         "options": {
         }
     },
-    "meson": {
-
+    "configure": {
+        "prepare": "",
+        "options": {
+        }
     }
   },
   "deps": {
-    "libpng": "1.6.37",
-    "pixman": "0.38.4",
-    "freetype": "2.10.0",
-    "fontconfig": "2.13.1",
-    "glib": "2.62.0",
-    "harfbuzz": "2.6.1"
+    "zlib": "1.2.12",
+    "libpng": "1.6.39",
+    "pixman": "0.38.4"
   }
 }

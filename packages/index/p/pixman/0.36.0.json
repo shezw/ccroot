@@ -1,0 +1,14 @@
+{
+  "url": "https://www.cairographics.org/releases/pixman-0.38.0.tar.gz",
+  "ext": "tar.gz",
+  "name": "pixman",
+  "version": "0.38.0",
+  "tools": {
+    "cmake":
+      {
+        "prepare": null,
+        "options": null
+      }
+  },
+  "deps": null
+}

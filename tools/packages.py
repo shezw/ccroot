@@ -1,6 +1,10 @@
 # this script is used to manager packages in the project
 # include add, remove and list packages
+import json
 import os
+from rich.console import Console
+
+console = Console()
 
 CC_ROOT_PACKAGES_DIR = os.getenv("CC_ROOT_PACKAGES_DIR")
 VALID_VERSION_SYMBOL = ['@', ':', '==', ' ']
@@ -11,6 +15,7 @@ def search_package(search_package_name):
 
     package_name = search_package_name
     package_ver = ''
+    package = None
     # search package json in the package index directory
     # get the first char of the package name
     # and find the package json file in the directory
@@ -31,8 +36,8 @@ def search_package(search_package_name):
     # package folder is package_index_dir/{package_name}
     package_dir = package_index_dir + '/' + package_name
     if not os.path.exists(package_dir):
-        print("Package not found")
-        return
+        console.print("Package ["+package_name+"] not found")
+        return None
     else:
         if package_ver == '':
             # means the package name has no version symbol
@@ -40,17 +45,29 @@ def search_package(search_package_name):
             for package_ver in os.listdir(package_dir):
                 if package_ver.endswith('.json'):
                     print(package_ver.split('.json')[0])
-            return
+            return None
         else:
             # check the {version}.json file is existed
             if not os.path.exists(package_dir + '/' + package_ver + '.json'):
-                print("Package version not found")
-                return
+                print("Package version ["+package_ver+"] not found")
+                return None
             else:
                 # print the package information
-                package_info = open(package_dir + '/' + package_ver + '.json').read()
-                print(package_info)
-                return
+                package_info = json.load(open(package_dir + '/' + package_ver + '.json'))
+                package = package_info
+
+                if package_info['deps']:
+                    print("Dependencies:" + str(package_info['deps']))
+                    for dep in package_info['deps']:
+                        dep_package = search_package(dep+'@'+package_info['deps'][dep])
+                        if dep_package:
+                            package['deps'][dep] = dep_package
+                        else:
+                            print("Dependency ["+dep+"] not found")
+                            return None
+
+            console.print(package)
+            return package
 
 
 class CC_Package:
