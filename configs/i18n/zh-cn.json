@@ -2,5 +2,14 @@
   "ccroot": "CCROOT",
   "description": "C/CPP的编译工具",
   "welcome": "欢迎使用C/CPP的编译工具",
-  "start": "开始配置"
+  "start": "开始配置",
+
+  "Menu.title": "请选择",
+  "Menu.head_id": "编号",
+  "Menu.head_title": "标题",
+  "Menu.head_value": "值",
+  "Menu.head_comment": "说明",
+  "Menu.input_prompt": "请输入编号",
+  "Menu.input_tip": "您的选择是：",
+  "Menu.invalid_tip": "无效的选择，请重新输入。"
 }

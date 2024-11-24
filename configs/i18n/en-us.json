@@ -2,5 +2,14 @@
   "ccroot": "CCROOT",
   "description": "A tool for comiple c/cpp projects.",
   "welcome": "Welcome to CCROOT!",
-  "start": "Start to config"
+  "start": "Start to config",
+
+  "Menu.title": "Please Selected",
+  "Menu.head_id": "ID",
+  "Menu.head_title": "Title",
+  "Menu.head_value": "Value",
+  "Menu.head_comment": "Comment",
+  "Menu.input_prompt": "Please input the id of selection",
+  "Menu.input_tip": "Your choice is：",
+  "Menu.invalid_tip": "Invalid choice, please input again."
 }

@@ -1,8 +1,8 @@
 # Menu option is used to render a menu with options and prompt the user to select an option.
 # a single option has id, title, value, and comment.
-class MenuOption():
-    def __init__(self, id, title, value, comment):
-        self.id = id
+class MenuOption:
+    def __init__(self, id_, title, value, comment):
+        self.id = id_
         self.title = title
         self.value = value
         self.comment = comment

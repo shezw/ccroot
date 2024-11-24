@@ -77,3 +77,7 @@ def cc_root_config():
 def cc_root_get_config():
     cc_config = CCConfig()
     return cc_config.configs
+
+
+def cc_root_config_platform():
+    pass
