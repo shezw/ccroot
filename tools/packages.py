@@ -42,10 +42,12 @@ def search_package(search_package_name):
         if package_ver == '':
             # means the package name has no version symbol
             # list all the versions of the package
+            package_list = []
             for package_ver in os.listdir(package_dir):
                 if package_ver.endswith('.json'):
+                    package_list.append(package_ver.split('.json')[0])
                     print(package_ver.split('.json')[0])
-            return None
+            return package_list if len(package_list) > 0 else None
         else:
             # check the {version}.json file is existed
             if not os.path.exists(package_dir + '/' + package_ver + '.json'):
@@ -70,15 +72,51 @@ def search_package(search_package_name):
             return package
 
 
-class CC_Package:
-    def __init__(self):
-        pass
+def add_package(package_name):
+    print("Add package ["+package_name+"]")
+    package = search_package(package_name)
 
-    def add_package(self, package_name):
-        pass
+    if isinstance(package, list):
+        print("Package ["+package_name+"] has multiple versions")
+        print("Please specify the version")
 
-    def remove_package(self, package_name):
-        pass
+        selected_version = None
+        while selected_version not in package:
+            selected_version = input("Please input the version: ")
+            if selected_version not in package:
+                print("Invalid version")
+        package_name = package_name + '@' + selected_version
+        package = search_package(package_name)
 
-    def list_packages(self):
-        pass
+    if not package:
+        print("Package ["+package_name+"] not found")
+        return
+
+    # check the package is already in the project or not
+    if os.path.exists(CC_ROOT_PACKAGES_DIR + '/' + package_name):
+        print("Package ["+package_name+"] is already in the project")
+        return
+
+    if 'deps' in package and package['deps']:
+        print("Package ["+package_name+"] has dependencies")
+        print("Install dependencies first")
+
+        for dep in package['deps']:
+            print(package['deps'][dep])
+            print("Install dependency ["+dep+"@"+package['deps'][dep]['version']+"]")
+            dep_package = search_package(dep+'@'+package['deps'][dep]['version'])
+            if dep_package:
+                add_package(dep+'@'+package['deps'][dep]['version'])
+            else:
+                print("Dependency ["+dep+"] not found")
+                return
+
+
+
+def remove_package(package_name):
+    print("Remove package ["+package_name+"]")
+
+
+def reset_package(package_name):
+    print("Rest package ["+package_name+"]")
+

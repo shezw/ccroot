@@ -107,21 +107,18 @@ elif cc_command == "search":
     search_package(search_package_name=args[2])
 
 elif cc_command == "add":
-    from tools.packages import CCAdd
-
-    cc_add = CCAdd()
-    cc_add.add()
+    from tools.packages import add_package
+    if len(args) < 3:
+        console.print("Please input the package name to add.", style="bold")
+        sys.exit(0)
+    add_package(args[2])
 elif cc_command == "remove":
-    from tools.packages import CCRemove
-
-    cc_remove = CCRemove()
-    cc_remove.remove()
+    from tools.packages import remove_package
+    if len(args) < 3:
+        console.print("Please input the package name to remove.", style="bold")
+        sys.exit(0)
+    remove_package(args[2])
 elif cc_command == "build":
-    from tools.build import CCBuild
-
-    cc_build = CCBuild()
-    cc_build.build()
-elif cc_command == "help":
-    cc_help()
+    print("build")
 else:
     cc_help()

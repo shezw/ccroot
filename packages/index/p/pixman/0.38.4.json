@@ -2,7 +2,7 @@
   "url": "https://www.cairographics.org/releases/pixman-0.38.4.tar.gz",
   "ext": "tar.gz",
   "name": "pixman",
-  "version": "0.38.0",
+  "version": "0.38.4",
   "tools": {
     "cmake":
       {

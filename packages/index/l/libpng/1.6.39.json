@@ -10,5 +10,7 @@
         "options": null
       }
   },
-  "deps": null
+  "deps": {
+    "zlib": "1.2.12"
+  }
 }
