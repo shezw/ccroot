@@ -1,0 +1,17 @@
+{
+  "url": "https://ghproxy.net/https://github.com/libffi/libffi/releases/download/v3.3/libffi-3.3.tar.gz",
+  "ext": "tar.gz",
+  "name": "ffi",
+  "version": "3.3",
+  "tools": {
+    "configure":
+      {
+        "prepare": "",
+        "options": {
+        }
+      }
+  },
+  "deps": {
+    "zlib": "1.2.12"
+  }
+}

@@ -1,15 +1,15 @@
 {
-  "url": "https://www.cairographics.org/releases/cairo-1.18.2.tar.xz",
-  "ext": "tar.xz",
-  "name": "cairo",
-  "version": "1.18.2",
+  "url": "https://download.savannah.gnu.org/releases/freetype/freetype-2.12.1.tar.gz",
+  "ext": "tar.gz",
+  "name": "freetype",
+  "version": "2.12.1",
   "tools": {
     "meson": {
         "prepare": "",
         "options": {
         }
     },
-    "configure": {
+    "cmake": {
         "prepare": "",
         "options": {
         }
@@ -17,6 +17,6 @@
   },
   "deps": {
     "libpng": "1.6.39",
-    "pixman": "0.38.4"
+    "zlib": "1.2.12"
   }
 }

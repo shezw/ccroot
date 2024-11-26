@@ -4,9 +4,13 @@ import json
 import os
 from rich.console import Console
 
+from tools.config import cc_root_init
+
 console = Console()
+cc_root_init()
 
 CC_ROOT_PACKAGES_DIR = os.getenv("CC_ROOT_PACKAGES_DIR")
+CC_PROJ_ROOT_DIR = os.getenv("CC_PROJ_ROOT_DIR")
 VALID_VERSION_SYMBOL = ['@', ':', '==', ' ']
 
 
@@ -68,12 +72,14 @@ def search_package(search_package_name):
                             print("Dependency ["+dep+"] not found")
                             return None
 
-            console.print(package)
             return package
 
 
-def add_package(package_name):
-    print("Add package ["+package_name+"]")
+def add_package_recurse(package_name, packages: list = None):
+
+    if not packages:
+        packages = []
+
     package = search_package(package_name)
 
     if isinstance(package, list):
@@ -90,27 +96,62 @@ def add_package(package_name):
 
     if not package:
         print("Package ["+package_name+"] not found")
-        return
+        return None
 
     # check the package is already in the project or not
     if os.path.exists(CC_ROOT_PACKAGES_DIR + '/' + package_name):
         print("Package ["+package_name+"] is already in the project")
-        return
+        return None
 
     if 'deps' in package and package['deps']:
         print("Package ["+package_name+"] has dependencies")
         print("Install dependencies first")
 
         for dep in package['deps']:
-            print(package['deps'][dep])
+            # print(package['deps'][dep])
             print("Install dependency ["+dep+"@"+package['deps'][dep]['version']+"]")
             dep_package = search_package(dep+'@'+package['deps'][dep]['version'])
             if dep_package:
-                add_package(dep+'@'+package['deps'][dep]['version'])
+                packages = add_package_recurse(dep+'@'+package['deps'][dep]['version'], packages)
             else:
                 print("Dependency ["+dep+"] not found")
-                return
+                return None
+    if 'deps' in package:
+        del package['deps']
 
+    packages.append(package)
+
+    return packages
+
+
+def add_package(package_name):
+    global CC_PROJ_ROOT_DIR
+
+    print("Add package ["+package_name+"]")
+
+    if not os.path.exists(CC_PROJ_ROOT_DIR + '/ccroot_packages.json'):
+        print("Packages.json not found")
+        packages = []
+    else:
+        packages = json.load(open(CC_PROJ_ROOT_DIR + '/ccroot_packages.json'))
+
+    recurse_packages = add_package_recurse(package_name)
+
+    if recurse_packages is not None and len(recurse_packages) > 0:
+        for package in recurse_packages:
+            if package not in packages:
+                packages.append(package)
+
+    with open(CC_PROJ_ROOT_DIR + '/ccroot_packages.json', 'w') as f:
+        f.write(json.dumps(packages, indent=4))
+
+    print("Package ["+package_name+"] added successfully")
+
+    return packages
+
+
+def list_packages():
+    print("List all packages")
 
 
 def remove_package(package_name):
