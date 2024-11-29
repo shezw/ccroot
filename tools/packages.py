@@ -124,16 +124,28 @@ def add_package_recurse(package_name, packages: list = None):
     return packages
 
 
+def get_all_packages():
+    global CC_PROJ_ROOT_DIR
+
+    if not os.path.exists(CC_PROJ_ROOT_DIR + '/ccroot_packages.json'):
+        print("Packages.json not found")
+        return None
+
+    packages = json.load(open(CC_PROJ_ROOT_DIR + '/ccroot_packages.json'))
+
+    return packages
+
+
+
 def add_package(package_name):
     global CC_PROJ_ROOT_DIR
 
     print("Add package ["+package_name+"]")
 
-    if not os.path.exists(CC_PROJ_ROOT_DIR + '/ccroot_packages.json'):
-        print("Packages.json not found")
+    packages = get_all_packages()
+
+    if packages is None:
         packages = []
-    else:
-        packages = json.load(open(CC_PROJ_ROOT_DIR + '/ccroot_packages.json'))
 
     recurse_packages = add_package_recurse(package_name)
 
@@ -150,12 +162,25 @@ def add_package(package_name):
     return packages
 
 
+def print_package(package,depth=0):
+    print("\t" * depth + package['name']+"@"+package['version'])
+    if 'deps' in package and package['deps']:
+        for dep in package['deps']:
+            print("\t" * (depth+1) + dep + "@" + package['deps'][dep])
+
+
 def list_packages():
     print("List all packages")
+    packages = get_all_packages()
+
+    for package in packages:
+        package_file = CC_ROOT_PACKAGES_DIR + '/index/' + package['name'][0] + '/' + package['name'] + '/' + package['version'] + '.json'
+        if os.path.exists(package_file):
+            print_package(json.load(open(package_file)))
 
 
-def remove_package(package_name):
-    print("Remove package ["+package_name+"]")
+def remove_package(package_name,version):
+    print("Remove package ["+package_name+"@"+version+"]")
 
 
 def reset_package(package_name):

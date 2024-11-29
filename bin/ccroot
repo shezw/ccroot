@@ -107,12 +107,12 @@ elif cc_command == "search":
     search_package(search_package_name=args[2])
 
 elif cc_command == "add":
-    from tools.packages import add_package
+    from tools.packages import add_package, list_packages
     if len(args) < 3:
         console.print("Please input the package name to add.", style="bold")
         sys.exit(0)
     all_packages = add_package(args[2])
-    console.print(all_packages)
+    list_packages()
 elif cc_command == "remove":
     from tools.packages import remove_package
     if len(args) < 3:
