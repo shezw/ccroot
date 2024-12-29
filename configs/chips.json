@@ -1,7 +1,7 @@
 {
   "ssd202": {
     "arch": "arm",
-    "eabi": "eabihf"
+    "eabi": ["eabi","eabihf"]
   },
   "t113-s3": {
     "arch": "arm",
