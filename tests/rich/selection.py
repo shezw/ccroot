@@ -23,7 +23,7 @@ def main():
     while True:
         choice = Prompt.ask("请输入选项的编号（1-4）", choices=[str(i) for i in range(1, len(options) + 1)])
         if choice in [str(i) for i in range(1, len(options) + 1)]:
-            console.print(f"你选择的是：{options[int(choice) - 1]}")
+            console.print("你选择的是："+options[int(choice) - 1])
             break
         else:
             console.print("无效的选择，请重新输入。")

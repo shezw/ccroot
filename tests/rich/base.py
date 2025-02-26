@@ -44,7 +44,7 @@ path = console.input("Please input or drop you home path: ")
 
 with open("report.txt", "wt") as report_file:
     console = Console(file=report_file)
-    console.rule(f"Report Generated {datetime.now().ctime()}" + path)
+    console.rule("Report Generated "+datetime.now().ctime() + path)
 
 # with console.pager():
 #     console.print(make_test_card())

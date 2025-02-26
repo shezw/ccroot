@@ -16,11 +16,11 @@ class CC_I18n:
         global configs_dir
         # check if the dict json file exists
         # the file name is i18n/{lang}.json
-        if not os.path.exists(f"{configs_dir}/i18n/{lang}.json"):
+        if not os.path.exists(configs_dir+"/i18n/"+lang+".json"):
             # specific language to en-us
             current_lang = "en-us"
 
-        self.dict = json.load(open(f"{configs_dir}/i18n/{current_lang}.json"))
+        self.dict = json.load(open(configs_dir+"/i18n/"+current_lang+".json"))
         all_i18n[current_lang] = self
 
     def trans(self, key_id):

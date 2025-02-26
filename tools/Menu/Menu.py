@@ -30,7 +30,7 @@ def display_menu(name=i18n("Menu.title"), options=None):
     while True:
         choice = Prompt.ask(i18n("Menu.input_prompt"), choices=[str(i) for i in range(1, len(options) + 1)])
         if choice in [str(i) for i in range(1, len(options) + 1)]:
-            console.print(f"{i18n("Menu.input_tip")}{options[int(choice) - 1]}")
+            console.print(i18n("Menu.input_tip")+options[int(choice) - 1])
             return options[int(choice) - 1]
         else:
             console.print(i18n("Menu.invalid_tip"))
