@@ -1,16 +1,13 @@
 {
   "url": "https://github.com/pnggroup/libpng/archive/refs/tags/v1.6.39.tar.gz",
-  "ext": "tar.gz",
   "name": "libpng",
   "version": "1.6.39",
-  "tools": {
-    "cmake":
-      {
-        "prepare": null,
-        "options": null
-      }
-  },
+  "path": "libpng-1.6.39",
+  "tools": "CMAKE",
   "deps": {
     "zlib": "1.2.12"
-  }
+  },
+  "md5": "a704977d681a40d8223d8b957fd41b29",
+  "file": "libpng-1.6.39.tar.gz",
+  "check": "libpng.so"
 }

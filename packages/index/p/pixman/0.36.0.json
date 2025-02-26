@@ -1,14 +1,11 @@
 {
   "url": "https://www.cairographics.org/releases/pixman-0.38.0.tar.gz",
-  "ext": "tar.gz",
   "name": "pixman",
   "version": "0.36.0",
-  "tools": {
-    "cmake":
-      {
-        "prepare": null,
-        "options": null
-      }
-  },
-  "deps": null
+  "path": "pixman-0.36.0",
+  "tools": "CONFIGURE",
+  "deps": null,
+  "md5": "8f34a92041de2daaa4c34c5f7c860f21",
+  "file": "pixman-0.36.0.tar.gz",
+  "check": "libpixman-1.so"
 }

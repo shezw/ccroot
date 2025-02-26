@@ -1,0 +1,14 @@
+{
+    "name": "curl",
+    "ver": "8.11.1",
+    "path": "curl-8.11.1",
+    "tool": "CMAKE",
+    "deps": {
+        "openssl":"3.3.1"
+    },
+    "opts": " -D ENABLE_IPV6=OFF ",
+    "check": "curl",
+    "url": "https://curl.se/download/curl-8.11.1.tar.gz",
+    "file": "curl-8.11.1.tar.gz",
+    "md5": "8eed752aeeb8ee54063b75baf95d3e14"
+}

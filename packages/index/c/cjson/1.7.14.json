@@ -1,0 +1,12 @@
+{
+    "name": "cjson",
+    "ver": "1.7.14",
+    "path": "cJSON-1.7.14",
+    "tool": "CMAKE",
+    "opts": " -D BUILD_SHARED_AND_STATIC_LIBS=ON ",
+    "check": "libcjson.a",
+    "url": "https://github.com/DaveGamble/cJSON/archive/refs/tags/v1.7.14.tar.gz",
+    "file": "cJSON-1.7.14.tar.gz",
+    "md5": "ff0557033e8374033107d40ca79bd52d",
+    "pre_scripts": "\necho '559c559\n<     if (isnan(d) || isinf(d))\n---\n>     if (isnan((float)d) || isinf((float)d))' | patch -p0 $CC_ROOT_DIR/3rd/cJSON-1.7.14/cJSON.c\n                   "
+}

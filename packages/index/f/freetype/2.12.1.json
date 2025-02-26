@@ -1,22 +1,14 @@
 {
   "url": "https://download.savannah.gnu.org/releases/freetype/freetype-2.12.1.tar.gz",
-  "ext": "tar.gz",
   "name": "freetype",
   "version": "2.12.1",
-  "tools": {
-    "meson": {
-        "prepare": "",
-        "options": {
-        }
-    },
-    "cmake": {
-        "prepare": "",
-        "options": {
-        }
-    }
-  },
+  "path": "freetype-2.12.1",
+  "tool": "CMAKE",
   "deps": {
     "libpng": "1.6.39",
     "zlib": "1.2.12"
-  }
+  },
+  "md5": "8bc5c9c9df7ac12c504f8918552a7cf2",
+  "file": "freetype-2.12.1.tar.gz",
+  "check": "libfreetype.so"
 }

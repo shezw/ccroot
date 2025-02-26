@@ -3,16 +3,12 @@
   "ext": "tar.xz",
   "name": "cairo",
   "version": "1.16.0",
-  "tools": {
-    "configure":
-      {
-        "prepare": "",
-        "options": {
-        }
-      }
-  },
+  "path": "cairo-1.16.0",
+  "tool": "CONFIGURE",
   "deps": {
     "libpng": "1.6.39",
     "pixman": "0.36.0"
-  }
+  },
+  "file": "cairo-1.16.0.tar.xz",
+  "md5": "f19e0353828269c22bd72e271243a552"
 }
