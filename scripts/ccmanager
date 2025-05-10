@@ -3,6 +3,8 @@
 # create 26 folders in packages/index , each name is from a to z
 
 import os
+import json
+import sys
 import shutil
 
 
@@ -13,4 +15,59 @@ def create_index():
             os.makedirs("packages/index/"+folder)
 
 
-create_index()
+# create_index()
+
+def refresh_index():
+    packages_dir = "packages"
+    index_file = "packages/index.json"
+    index_dir = "packages/index"
+
+    # get all folders in packages index dir
+    folders = [f for f in os.listdir(index_dir) if os.path.isdir(os.path.join(index_dir, f))]
+    print(folders)
+
+    all_indexes = {}
+
+    for folder in folders:
+        folder_path = os.path.join(index_dir, folder)
+
+        libs = [f for f in os.listdir(folder_path)]
+
+        for lib in libs:
+            lib_path = os.path.join(folder_path, lib)
+            # check if the file is a directory
+
+            vers = [f for f in os.listdir(lib_path) if os.path.isfile(os.path.join(lib_path, f))]
+
+            all_indexes[lib] = []
+
+            for ver in vers:
+                ver_path = os.path.join(lib_path, ver)
+
+                # remove .json
+                if ver.endswith(".json"):
+                    ver = ver[:-5]
+
+                all_indexes[lib].append(ver)
+
+    # write the list to the index.json file
+    with open(index_file, "w") as f:
+        json.dump(all_indexes, f, indent=4)
+
+
+
+if __name__ == "__main__":
+
+    # check command
+    if len(os.sys.argv) < 2:
+        print("Please input the command.")
+        os.sys.exit(0)
+
+    command = os.sys.argv[1]
+    if command == "init":
+        create_index()
+    elif command == "refresh":
+        refresh_index()
+    else:
+        print("Invalid command.")
+        os.sys.exit(0)

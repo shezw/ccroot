@@ -116,4 +116,4 @@ def prepare_project(project_dir):
     with open(CC_PROJ_ROOT_DIR + "/cc_root_project.json", "w") as f:
         f.write(json.dumps(cc_root_project_config, indent=4))
 
-    print("Project initialized successfully")
+    # print("Project initialized successfully")

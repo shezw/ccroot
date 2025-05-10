@@ -40,8 +40,46 @@ def search_package(search_package_name):
     # package folder is package_index_dir/{package_name}
     package_dir = package_index_dir + '/' + package_name
     if not os.path.exists(package_dir):
+        # (clearly search failed)
+        console.print("Package ["+package_name+"] not found")
+
+        # try matching the package name in index.json
+        package_index_file = CC_ROOT_PACKAGES_DIR + '/index.json'
+        if os.path.exists(package_index_file):
+            package_indexes = json.load(open(package_index_file))
+
+            package_need_select = []
+
+            for package_index in package_indexes:
+                if package_name in package_index:
+                    package_need_select.append(package_index)
+
+            if len(package_need_select) > 0:
+                print("Package ["+package_name+"] not found")
+                print("Please select the package:")
+                for package_index in package_need_select:
+                    print(package_index)
+                selected_version = None
+
+                while selected_version not in package_need_select:
+                    selected_version = input("Please input the version: ")
+                    if selected_version not in package_need_select:
+                        print("Invalid version")
+
+                # get the package name and version
+                print("Package ["+selected_version+"] selected")
+
+                package_name = selected_version.split('@')[0]
+                package_dir = package_index_dir + '/' + package_name
+        else:
+            print("Package index file not found")
+            return None
+
+    if not os.path.exists(package_dir):
+        # package folder is not existed, search failed
         console.print("Package ["+package_name+"] not found")
         return None
+
     else:
         if package_ver == '':
             # means the package name has no version symbol
@@ -62,7 +100,7 @@ def search_package(search_package_name):
                 package_info = json.load(open(package_dir + '/' + package_ver + '.json'))
                 package = package_info
 
-                if package_info['deps']:
+                if 'deps' in package_info and package_info['deps']:
                     print("Dependencies:" + str(package_info['deps']))
                     for dep in package_info['deps']:
                         dep_package = search_package(dep+'@'+package_info['deps'][dep])
@@ -151,8 +189,17 @@ def add_package(package_name):
 
     if recurse_packages is not None and len(recurse_packages) > 0:
         for package in recurse_packages:
-            if package not in packages:
-                packages.append(package)
+
+            # check if the package is already in the project
+            for p in packages:
+                if 'name' not in p or 'name' not in package:
+                    print("Package is invalid")
+                    break
+                if p['name'] == package['name'] :
+                    print("Package ["+package['name']+"] is already in the project")
+                    break
+
+            packages.append(package)
 
     with open(CC_PROJ_ROOT_DIR + '/ccroot_packages.json', 'w') as f:
         f.write(json.dumps(packages, indent=4))

@@ -104,7 +104,10 @@ elif cc_command == "search":
     if len(args) < 3:
         console.print("Please input the package name to search.", style="bold")
         sys.exit(0)
-    search_package(search_package_name=args[2])
+    package = search_package(search_package_name=args[2])
+    if package:
+        console.print("Package found: ", style="bold")
+        console.print(package, style="bold")
 
 elif cc_command == "add":
     from tools.packages import add_package, list_packages
