@@ -5,7 +5,7 @@
   },
   "t113-s3": {
     "arch": "arm",
-    "eabi": ["eabi","eabihf"]
+    "eabi": ["eabi","eabihf","eabi-musl"]
   },
   "h616": {
     "arch": "aarch64",

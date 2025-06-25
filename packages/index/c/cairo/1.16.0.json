@@ -1,6 +1,5 @@
 {
   "url": "https://www.cairographics.org/releases/cairo-1.16.0.tar.xz",
-  "ext": "tar.xz",
   "name": "cairo",
   "version": "1.16.0",
   "path": "cairo-1.16.0",

@@ -1,0 +1,16 @@
+{
+    "name": "bluez",
+    "version": "5.52",
+    "path": "bluez-5.52",
+    "tool": "CONFIGURE",
+    "deps": {
+        "glib": "2.56.4",
+        "dbus": "1.15.4",
+        "readline": "8.2-rc4"
+    },
+    "opts": " --enable-library --enable-test --enable-deprecated --disable-udev --disable-cups --disable-obex --disable-systemd --enable-monitor ",
+    "check": "libbluetooth.so",
+    "url": "http://www.kernel.org/pub/linux/bluetooth/bluez-5.52.tar.xz",
+    "file": "bluez-5.52.tar.xz",
+    "md5": "a33eb9aadf1dd4153420958709d3ce60"
+}

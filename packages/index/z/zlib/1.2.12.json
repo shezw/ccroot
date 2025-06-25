@@ -1,10 +1,9 @@
 {
-  "url": "https://www.zlib.net/fossils/zlib-1.2.12.tar.gz",
   "name": "zlib",
   "version": "1.2.12",
   "path": "zlib-1.2.12",
   "tools": "CMAKE",
-  "deps": null,
+  "url": "https://www.zlib.net/fossils/zlib-1.2.12.tar.gz",
   "md5": "5fc414a9726be31427b440b434d05f78",
   "file": "zlib-1.2.12.tar.gz",
   "check": "libz.so"

@@ -1,0 +1,10 @@
+{
+    "name": "pcre",
+    "version": "8.45",
+    "path": "pcre-8.45",
+    "tool": "CONFIGURE",
+    "check": "libpcre.so",
+    "url": "https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.bz2/download",
+    "file": "pcre-8.45.tar.bz2",
+    "md5": "4452288e6a0eefb2ab11d36010a1eebb"
+}

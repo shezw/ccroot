@@ -1,0 +1,10 @@
+{
+    "name": "opencv",
+    "version": "3.4.6",
+    "path": "opencv-3.4.6",
+    "tool": "CMAKE",
+    "check": "libopencv_core.so",
+    "url": "https://github.com/opencv/opencv/archive/refs/tags/3.4.6.tar.gz",
+    "file": "opencv-3.4.6.tar.gz",
+    "md5": "7453d6b344c15431f5dc0d9c84128e79"
+}

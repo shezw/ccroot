@@ -1,0 +1,11 @@
+{
+    "name": "ncurses",
+    "version": "6.0",
+    "path": "ncurses-6.0",
+    "tool": "CONFIGURE",
+    "opts": " --with-shared ",
+    "check": "libncurses.so",
+    "url": "https://github.com/mirror/ncurses/archive/refs/tags/v6.0.tar.gz",
+    "file": "ncurses-6.0.tar.gz",
+    "md5": "456651d1aa0fa2a2f330e9894bd78bf2"
+}

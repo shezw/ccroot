@@ -1,0 +1,14 @@
+{
+    "name": "readline",
+    "version": "8.2-rc4",
+    "path": "readline-8.2-rc4",
+    "tool": "CONFIGURE",
+    "deps": {
+        "ncurses": "6.0"
+    },
+    "opts": "--with-curses",
+    "check": "libreadline.so",
+    "url": "https://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-8.2-rc4.tar.gz",
+    "file": "readline-8.2-rc4.tar.gz",
+    "md5": "a1d26a9df6c2c46085ed59cdafe6b9f8"
+}

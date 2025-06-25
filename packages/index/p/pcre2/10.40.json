@@ -1,0 +1,10 @@
+{
+    "name": "pcre2",
+    "version": "10.40",
+    "path": "pcre2-10.40",
+    "tool": "CONFIGURE",
+    "check": "libpcre2-posix.so",
+    "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.40/pcre2-10.40.tar.gz",
+    "file": "pcre2-10.40.tar.gz",
+    "md5": "252411a2f9cb529cda965bff37af1d18"
+}

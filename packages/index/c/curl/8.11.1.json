@@ -1,6 +1,6 @@
 {
     "name": "curl",
-    "ver": "8.11.1",
+    "version": "8.11.1",
     "path": "curl-8.11.1",
     "tool": "CMAKE",
     "deps": {

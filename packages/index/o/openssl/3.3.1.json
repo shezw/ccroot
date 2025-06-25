@@ -1,0 +1,11 @@
+{
+    "name": "openssl",
+    "version": "3.3.1",
+    "path": "openssl-3.3.1",
+    "tool": "CONFIGURE",
+    "check": "libssl.so",
+    "url": "https://github.com/openssl/openssl/releases/download/openssl-3.3.1/openssl-3.3.1.tar.gz",
+    "file": "openssl-3.3.1.tar.gz",
+    "md5": "8a4342b399c18f870ca6186299195984",
+    "pre_scripts": "cp $CC_ROOT_DIR/3rd/openssl-3.3.1/Configure $CC_ROOT_DIR/3rd/openssl-3.3.1/configure"
+}

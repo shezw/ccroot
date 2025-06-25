@@ -1,0 +1,11 @@
+{
+    "name": "paho-mqtt",
+    "version": "1.3.14",
+    "path": "paho.mqtt.c-1.3.14",
+    "tool": "CMAKE",
+    "opts": " -D PAHO_BUILD_SHARED=ON -D PAHO_BUILD_STATIC=OFF ",
+    "check": "libpaho-mqtt3c.so",
+    "url": "https://github.com/eclipse-paho/paho.mqtt.c/archive/refs/tags/v1.3.14.tar.gz",
+    "file": "paho-mqtt-1.4.tar.gz",
+    "md5": "0289af6d1927e148dc7fc1b2b8f26e29"
+}

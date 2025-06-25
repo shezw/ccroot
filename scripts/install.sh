@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This file is used to install necessary software and set some default programs
 #
@@ -8,7 +8,21 @@
 # If not, install brew or apt-get and git
 # The core software is python3 and python3 rich
 
+INSTALL_DIR=$HOME/.ccroot
+TOOL_DIR=$(dirname $(realpath $0))
 host_os=$(uname -s)
+force_install=false
+remove=false
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -f | --force )
+        force_install=true
+        ;;
+    esac
+    shift
+done
+
 
 check_command() {
     name=$1
@@ -27,11 +41,10 @@ check_command() {
 
 check_command "python3"
 check_command "git"
-check_command "rich"
 
 # check if the user has installed the necessary software in [python3, git, rich]
 
-if [ -x "$(command -v python3)" ] && [ -x "$(command -v git)" ] && [ -x "$(command -v rich)" ]; then
+if [ -x "$(command -v python3)" ] && [ -x "$(command -v git)" ]; then
     echo "All necessary software is installed."
 else
     echo "Please install the necessary software first."

@@ -1,0 +1,10 @@
+{
+    "name": "expat",
+    "version": "2.4.8",
+    "path": "expat-2.4.8",
+    "tool": "CONFIGURE",
+    "check": "libexpat.so",
+    "url": "https://github.com/libexpat/libexpat/releases/download/R_2_4_8/expat-2.4.8.tar.xz",
+    "file": "expat-2.4.8.tar.xz",
+    "md5": "0584a7318a4c007f7ec94778799d72fe"
+}

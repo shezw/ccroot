@@ -1,0 +1,15 @@
+{
+    "name": "dbus",
+    "version": "1.15.4",
+    "path": "dbus-dbus-1.15.4",
+    "tool": "CMAKE",
+    "deps": {
+        "glib": "2.56.4",
+        "expat": "2.4.8"
+    },
+    "opts": " -D ENABLE_SYSTEMD=OFF -D DBUS_SESSION_SOCKET_DIR=/etc/dbus-1/senssion",
+    "check": "libdbus-1.so",
+    "url": "https://gitlab.freedesktop.org/dbus/dbus/-/archive/dbus-1.15.4/dbus-dbus-1.15.4.tar.bz2",
+    "file": "dbus-dbus-1.15.4.tar.bz2",
+    "md5": "8e94aa117b551ac416c22289a68dcbb8"
+}

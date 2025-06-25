@@ -43,6 +43,7 @@ def cc_help():
         console.print("Commands:", style="bold")
         console.print("  config    [] set target platform and compiler tools etc.", style="bold")
         console.print("  search    [{lib}@{version}] search a package", style="bold")
+        console.print("  packages  [] show all packages added ", style="bold")
         console.print("  add       [] add a package into libs", style="bold")
         console.print("  remove    [] remove a package from libs", style="bold")
         console.print("  build     [] build the specific package or all packages and the project source code", style="bold")
@@ -108,6 +109,10 @@ elif cc_command == "search":
     if package:
         console.print("Package found: ", style="bold")
         console.print(package, style="bold")
+
+elif cc_command == "packages":
+    from tools.packages import list_packages
+    list_packages()
 
 elif cc_command == "add":
     from tools.packages import add_package, list_packages
