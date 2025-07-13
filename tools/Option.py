@@ -46,9 +46,29 @@ class CCOptionDepends:
         else:
             return f'{self.option}{CCOptionDependsRelation.EQUAL.__str__()+self.value if self.value is not None else ""}'
 
+    @classmethod
+    def from_string(cls,depends_str: str):
+        if not depends_str:
+            return None
+        dep = CCOptionDepends(option="", value=None, relation=None)
+        for relation in CCOptionDependsRelation:
+            if relation.value in depends_str:
+                parts = depends_str.split(relation.value)
+                if len(parts) == 2:
+                    dep.option = parts[0].strip()
+                    dep.value = parts[1].strip()
+                    dep.relation = relation
+                    return dep
+        if dep.relation is None:
+            # If no relation is found, assume it's a simple option without value
+            dep.option = depends_str.strip()
+            dep.value = None
+            dep.relation = None
+        return dep
+
 class CCOption:
     # Name, Type, Default, Description, Value, Depends
-    def __init__(self, name: str, opt_type: CCOptionType, default: str = None, description: str = None, value: str = None, depends: str = None):
+    def __init__(self, name: str, opt_type: CCOptionType, default: str = None, description: str = None, value: str = None, depends: CCOptionDepends = None):
         self.name = name
         self.type = opt_type
         self.default = default
@@ -71,3 +91,35 @@ class CCOption:
             "value": self.value,
             "depends": self.depends.to_json() if isinstance(self.depends, CCOptionDepends) else None
         }
+
+    @classmethod
+    def from_json(cls, json_data):
+        if not json_data:
+            return None
+        if isinstance(json_data, str):
+            import json
+            json_data = json.loads(json_data)
+        if not isinstance(json_data, dict):
+            raise ValueError("Invalid JSON data for CCOption")
+        # Create a new CCOption instance with the provided JSON data
+        option = cls(
+            name=json_data.get("name", ""),
+            opt_type=CCOptionType(json_data.get("type", CCOptionType.STRING.value)),
+            default=json_data.get("default"),
+            description=json_data.get("description"),
+            value=json_data.get("value")
+        )
+        # Handle the depends field
+        if "depends" in json_data:
+            if isinstance(json_data["depends"], str):
+                option.depends = CCOptionDepends.from_string(json_data["depends"])
+            else:
+                option.depends = CCOptionDepends(
+                    option=json_data["depends"].get("option"),
+                    value=json_data["depends"].get("value"),
+                    relation=CCOptionDependsRelation(json_data["depends"].get("relation"))
+                )
+        else:
+            option.depends = None
+
+        return option
