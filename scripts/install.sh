@@ -39,12 +39,39 @@ check_command() {
     fi
 }
 
+function check_python_module() {
+    module_name=$1
+    if python3 -c "import $module_name" &>/dev/null; then
+        echo "$module_name module is already installed."
+    else
+        echo "Installing $module_name module..."
+        python3 -m pip install "$module_name"
+
+        if [ $? -ne 0 ]; then
+            echo "Failed to install $module_name module. Please Install it manually.
+
+            example:
+            pip3 install $module_name
+            or check https://pypi.org/project/$module_name/ for more information.
+            "
+
+            exit 1
+        fi
+    fi
+}
+
 check_command "python3"
 check_command "git"
 
 # check if the user has installed the necessary software in [python3, git, rich]
 
 if [ -x "$(command -v python3)" ] && [ -x "$(command -v git)" ]; then
+
+    # check if the rich module is installed
+    check_python_module "rich"
+    check_python_module "flask"
+    check_python_module "jsonify"
+
     echo "All necessary software is installed."
 else
     echo "Please install the necessary software first."
@@ -52,7 +79,7 @@ else
 fi
 
 # now export ccroot bin path to path environment & try to add export path to .bashrc or .zshrc
-# the ccrpot bin path is the path of the bin directory in current file's directory
+# the ccroot bin path is the path of the bin directory in current file's directory
 
 script_path=$(dirname "$0")
 ccroot_path=$(cd "$script_path" && cd .. && pwd)

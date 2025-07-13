@@ -1,4 +1,4 @@
-#!python
+#!python3
 import sys
 import os
 import argparse
@@ -129,5 +129,8 @@ elif cc_command == "remove":
     remove_package(args[2])
 elif cc_command == "build":
     print("build")
+elif cc_command == "web":
+    from tools.web import web_server
+    web_server()
 else:
     cc_help()
