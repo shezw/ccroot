@@ -52,7 +52,8 @@ def refresh_index():
 
     # write the list to the index.json file
     with open(index_file, "w") as f:
-        json.dump(all_indexes, f, indent=4)
+        # save index file and make sure the order of key
+        json.dump(all_indexes, f, indent=4, sort_keys=True)
 
 
 
