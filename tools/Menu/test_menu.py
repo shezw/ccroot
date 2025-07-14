@@ -1,4 +1,5 @@
-from Menu import MenuOption, display_menu
+from Menu import display_menu
+from MenuOption import MenuOption
 
 def main():
 

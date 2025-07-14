@@ -1,5 +1,18 @@
 import sys
+import os
 
+# import tools folder
+tools_dir = os.path.dirname(os.path.abspath(__file__))
+ccroot_dir = os.path.dirname(tools_dir)
+menu_module_dir = os.path.join(tools_dir, 'Menu')
+
+sys.path.append(ccroot_dir)
+sys.path.append(tools_dir)
+sys.path.append(menu_module_dir)
+
+from tools.env import prepare_env
+
+prepare_env()
 
 def test_case_ccoption():
     from Option import CCOption, CCOptionType, CCOptionDepends, CCOptionDependsRelation
@@ -43,6 +56,28 @@ def test_case_ccoption():
     option = CCOption.from_json('{"name": "version_option", "type": "string", "default": "1.0.0", "description": "This is a test option", "depends": "use_test_lib"}')
     print(f"Option from JSON string with depends: {option.to_json()}")
 
+    # get json from test_res/test_options.json
+    # check file exists
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
+    test_file = os.path.join(current_dir, 'test_res', 'test_options.json')
+    if not os.path.exists(test_file):
+        print(f"Test file {test_file} does not exist.")
+        return
+
+    test_options = CCOption.options_from_json_file(test_file)
+
+    for option in test_options:
+        print(f"Option from file: {option.to_json()}")
+
+
+from test_menu import main as test_menu
+
+def test_case_menu():
+    print("Running Menu tests...")
+    test_menu()
+    print("Menu tests completed.")
+
 
 if __name__ == '__main__':
 
@@ -56,3 +91,6 @@ if __name__ == '__main__':
 
     if test_case == "option":
         test_case_ccoption()
+
+    if test_case == "menu":
+        test_case_menu()
