@@ -1,4 +1,5 @@
 from enum import Enum
+import json
 
 class CCOptionType(Enum):
     BOOLEAN = "boolean"
@@ -68,19 +69,20 @@ class CCOptionDepends:
 
 class CCOption:
     # Name, Type, Default, Description, Value, Depends
-    def __init__(self, name: str, opt_type: CCOptionType, default: str = None, description: str = None, value: str = None, depends: CCOptionDepends = None):
+    def __init__(self, name: str, opt_type: CCOptionType, default: str = None, description: str = None, value: str = None, choices:[]=None, depends: CCOptionDepends = None):
         self.name = name
         self.type = opt_type
         self.default = default
         self.description = description
         self.value = value if value is not None else None
+        self.choices = choices  # Choices for choice type options
         self.depends = depends
 
     def __str__(self):
-        return f"CCOption(name={self.name}, type={self.type}, default={self.default}, description={self.description}, value={self.value}, depends={self.depends})"
+        return f"CCOption(name={self.name}, type={self.type}, default={self.default}, description={self.description}, value={self.value}, choices={self.choices}, depends={self.depends})"
 
     def __repr__(self):
-        return f"CCOption(name={self.name}, type={self.type}, default={self.default}, description={self.description}, value={self.value}, depends={self.depends})"
+        return f"CCOption(name={self.name}, type={self.type}, default={self.default}, description={self.description}, value={self.value}, choices={self.choices},, depends={self.depends})"
 
     def to_json(self):
         return {
@@ -89,6 +91,7 @@ class CCOption:
             "default": self.default,
             "description": self.description,
             "value": self.value,
+            "choices": self.choices if self.choices is not None else [],
             "depends": self.depends.to_json() if isinstance(self.depends, CCOptionDepends) else None
         }
 
@@ -109,6 +112,13 @@ class CCOption:
             description=json_data.get("description"),
             value=json_data.get("value")
         )
+
+        if "choices" in json_data:
+            if isinstance(json_data["choices"], list):
+                option.choices = json_data["choices"]
+            else:
+                raise ValueError("Invalid choices format, expected a list")
+
         # Handle the depends field
         if "depends" in json_data:
             if isinstance(json_data["depends"], str):
@@ -123,3 +133,27 @@ class CCOption:
             option.depends = None
 
         return option
+
+    @classmethod
+    def options_from_json(cls, json_data):
+        if isinstance(json_data, str):
+            json_data = json.loads(json_data)
+        if not isinstance(json_data, list):
+            raise ValueError("Invalid JSON data for CCOption list")
+        options = []
+        for item in json_data:
+            options.append(cls.from_json(item))
+        return options
+
+    @classmethod
+    def options_from_json_file(cls, file_path):
+        with open(file_path, 'r') as f:
+            json_data = json.load(f)
+        if isinstance(json_data, list):
+            return cls.options_from_json(json_data)
+        else:
+            try_get_single_option = cls.from_json(json_data)
+            if try_get_single_option:
+                return [try_get_single_option]
+            else:
+                return None
