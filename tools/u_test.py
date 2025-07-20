@@ -10,12 +10,32 @@ sys.path.append(ccroot_dir)
 sys.path.append(tools_dir)
 sys.path.append(menu_module_dir)
 
+from Option import CCOption, CCOptionType, CCOptionDepends, CCOptionDependsRelation
+
 from tools.env import prepare_env
+
+from MenuSelection import MenuSelection
+from Menu import display_menu, ask_single
+
 
 prepare_env()
 
+def get_test_options():
+
+    # get json from test_res/test_options.json
+    # check file exists
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+
+    test_file = os.path.join(current_dir, 'test_res', 'test_options.json')
+    if not os.path.exists(test_file):
+        print(f"Test file {test_file} does not exist.")
+        return
+
+    test_options = CCOption.options_from_json_file(test_file)
+
+    return test_options
+
 def test_case_ccoption():
-    from Option import CCOption, CCOptionType, CCOptionDepends, CCOptionDependsRelation
 
     dep_from_string = "another_option == another_value"
     depends = CCOptionDepends.from_string(dep_from_string)
@@ -56,26 +76,47 @@ def test_case_ccoption():
     option = CCOption.from_json('{"name": "version_option", "type": "string", "default": "1.0.0", "description": "This is a test option", "depends": "use_test_lib"}')
     print(f"Option from JSON string with depends: {option.to_json()}")
 
-    # get json from test_res/test_options.json
-    # check file exists
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-
-    test_file = os.path.join(current_dir, 'test_res', 'test_options.json')
-    if not os.path.exists(test_file):
-        print(f"Test file {test_file} does not exist.")
-        return
-
-    test_options = CCOption.options_from_json_file(test_file)
+    test_options = get_test_options()
 
     for option in test_options:
         print(f"Option from file: {option.to_json()}")
 
 
-from test_menu import main as test_menu
-
 def test_case_menu():
     print("Running Menu tests...")
-    test_menu()
+
+    options_json = [
+        {"id": 1, "title": "Windows", "value": "win", "comment": "Windows system"},
+        {"id": 2, "title": "Linux", "value": "linux", "comment": "Linux system"},
+        {"id": 3, "title": "MacOS", "value": "mac", "comment": "MacOS system"},
+        {"id": 4, "title": "Android", "value": "android", "comment": "Android system"},
+        {"id": 5, "title": "iOS", "value": "ios", "comment": "iOS system"}
+    ]
+
+    # a test options that include 5 real systems
+    options = [
+        MenuSelection(1, "Windows", "win", "Windows system"),
+        MenuSelection(2, "Linux", "linux", "Linux system"),
+        MenuSelection(3, "MacOS", "mac", "MacOS system"),
+        MenuSelection(4, "Android", "android", "Android system"),
+        MenuSelection(5, "iOS", "ios", "iOS system"),
+        MenuSelection(6, "FreeBSD", "freebsd", "FreeBSD system"),
+        MenuSelection(7, "Solaris", "solaris", "Solaris system"),
+        MenuSelection(8, "OpenBSD", "openbsd", "OpenBSD system"),
+        MenuSelection(9, "Haiku", "haiku", "Haiku system"),
+        MenuSelection(10, "ChromeOS", "chromeos", "ChromeOS system"),
+    ]
+
+    options_form_json = [MenuSelection(option["id"], option["title"], option["value"], option["comment"]) for option in options_json]
+
+    #selection = display_menu("Please select target system",options)
+
+    #selection = display_menu("Please select target system",options_form_json)
+
+    test_options = get_test_options()
+
+    ask_single(CCOption.from_json(test_options[0]))
+
     print("Menu tests completed.")
 
 
