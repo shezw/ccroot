@@ -115,7 +115,15 @@ def test_case_menu():
 
     test_options = get_test_options()
 
-    ask_single(CCOption.from_json(test_options[0]))
+    print(str(test_options))
+
+    ask_single(test_options[0])
+    ask_single(test_options[1])
+    ask_single(test_options[2])
+    ask_single(test_options[3])
+    ask_single(test_options[4])
+    ask_single(test_options[5])
+
 
     print("Menu tests completed.")
 

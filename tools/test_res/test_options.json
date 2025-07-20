@@ -3,13 +3,80 @@
     "name": "test_option_boolean",
     "description": "Test boolean option",
     "type": "boolean",
-    "default": false
+    "default": false,
+    "required": true
   },
   {
     "name": "test_option_number",
     "description": "Test number option",
     "type": "number",
     "default": 10
+  },
+  {
+      "name": "test_option_string",
+      "description": "Test string option",
+      "type": "string",
+      "default": "default_value"
+  },
+  {
+      "name": "test_option_string_required",
+      "description": "Test required string option",
+      "type": "string",
+      "required": true
+  },
+  {
+      "name": "test_option_choice",
+      "description": "Test choice option",
+      "type": "choice",
+      "default": "option1",
+      "choices": [
+      "option1",
+      "option2",
+      "option3"
+      ]
+  },
+  {
+      "name": "test_option_choice_os",
+      "description": "Test choice option of Operation System",
+      "type": "choice",
+      "default": "linux",
+      "choices": [
+        {
+            "name": "Linux",
+            "value":"linux",
+            "description": "Linux operating system"
+        },
+        {
+            "name": "Windows",
+            "value":"windows",
+            "description": "Windows operating system"
+        },
+        {
+            "name": "macOS",
+            "value":"macos-x86",
+            "description": "macOS operating system with Intel (x86_64)"
+        },
+        {
+            "name": "macOS",
+            "value":"macos-aarch64",
+            "description": "macOS operating system with Apple Silicon (aarch64)"
+        },
+        {
+            "name": "Android",
+            "value":"android",
+            "description": "Android operating system"
+        }
+      ]
+  },
+  {
+      "name": "test_option_choice_required",
+      "description": "Test required choice option",
+      "type": "choice",
+      "required": true,
+      "choices": [
+      "option1",
+      "option2"
+      ]
   },
   {
     "name": "test_option_number_auto",

@@ -39,6 +39,12 @@ def display_menu(name=i18n("Menu.title"), options:[MenuSelection]=None):
             console.print(i18n("Menu.invalid_tip"))
 
 
+def ask_menu_choices(choices: []):
+    if choices is None or len(choices) == 0:
+        console.print(i18n("Menu.unsupported_option_type"+CCOptionType.CHOICE.__str__()), style="bold red")
+        return None
+
+
 def ask_single(option:CCOption):
     """
     Ask a single option from the user.
@@ -47,18 +53,42 @@ def ask_single(option:CCOption):
     """
     # depends manager outside
 
-    if option.type ==CCOptionType.STRING:
+    if option.type.__str__() == CCOptionType.STRING.__str__():
+        while True:
+            value = Prompt.ask(option.description, default=option.default)
+            if not option.required or value:
+                break
+    elif option.type.__str__() == CCOptionType.BOOLEAN.__str__():
+        _default_value = None
+        if option.default is not None:
+            _default_value = "yes" if option.default else "no"
+        value = Prompt.ask(option.description, choices=["yes", "no", "y","n"], default=_default_value)
+        value = value in ["yes", "y"]
+    elif option.type.__str__() == CCOptionType.NUMBER.__str__():
         value = Prompt.ask(option.description, default=option.default)
-    elif option.type == CCOptionType.BOOLEAN:
-        value = Prompt.ask(option.description, choices=["yes", "no"], default="yes") == "yes"
-    elif option.type == CCOptionType.NUMBER:
-        value = Prompt.ask(option.description, default=option.default, cast=int)
-    elif option.type == CCOptionType.CHOICE:
-        value = Prompt.ask(option.description, choices=option.choices, default=option.default)
-    elif option.type == CCOptionType.LIBRARY:
+    elif option.type.__str__() == CCOptionType.CHOICE.__str__():
+        # value = Prompt.ask(option.description, choices=option.choices, default=option.default)
+        if option.choices is None or len(option.choices) == 0:
+            console.print(i18n("Menu.unsupported_option_type"+option.type.__str__()), style="bold red")
+            return None
+
+        menu_options = []
+
+        for choice in option.choices:
+            if isinstance(choice, dict):
+                _cmt = choice.get("description", "")
+                _value = choice.get("value", "")
+                _name = choice.get("name", "")
+                menu_options.append(MenuSelection(str(len(menu_options) + 1), _name, _value, _cmt))
+            elif isinstance(choice, str):
+                menu_options.append(MenuSelection(str(len(menu_options) + 1), choice, choice, ""))
+
+        value = display_menu(option.description, menu_options)
+
+    elif option.type.__str__() == CCOptionType.LIBRARY.__str__():
         value = Prompt.ask(option.description, choices=option.choices, default=option.default)
     else:
-        console.print(i18n("Menu.unsupported_option_type", type=option.type), style="bold red")
+        console.print(i18n("Menu.unsupported_option_type"+option.type.__str__()), style="bold red")
         return None
 
     return value

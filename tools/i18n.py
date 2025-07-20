@@ -4,6 +4,10 @@ import json
 import os
 from typing import List
 
+from tools.env import prepare_env
+
+prepare_env()
+
 configs_dir = os.getenv("CC_ROOT_CONFIGS_DIR")
 current_lang = "en-us"
 
