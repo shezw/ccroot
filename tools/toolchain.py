@@ -2,7 +2,8 @@
 # There are two types of toolchains: cross-compiler and native compiler
 # User also can use the default compiler in the system
 # or use the compiler for the specific target
-from tools import Platform, Archive
+from tools.Archive import Archive
+from tools.Platform import Platform
 import json
 
 
@@ -178,6 +179,13 @@ class Toolchain:
             data = json.loads(data)
         if not isinstance(data, dict):
             raise ValueError("Invalid JSON data for Toolchain")
+
+        if 'platform' not in data or not data['platform']:
+            raise ValueError("Missing 'platform' in toolchain data")
+        if 'binaries' not in data or not data['binaries']:
+            raise ValueError("Missing 'binaries' in toolchain data")
+        if 'archive' not in data or not data['archive']:
+            raise ValueError("Missing 'archive' in toolchain data")
 
         platform = Platform.from_json(data.get('platform'))
         binaries = ToolchainBinaries.from_json(data.get('binaries'))

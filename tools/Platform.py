@@ -107,18 +107,18 @@ class PlatformHardware:
         return hardware
 
     def to_json(self):
-        json = {
+        _json = {
             'arch': str(self.arch)
         }
         if self.brand:
-            json['brand'] = str(self.brand)
+            _json['brand'] = str(self.brand)
         if self.chip:
-            json['chip'] = self.chip
+            _json['chip'] = self.chip
         if self.abi:
-            json['abi'] = str(self.abi)
+            _json['abi'] = str(self.abi)
         if self.libc:
-            json['libc'] = str(self.libc)
-        return json
+            _json['libc'] = str(self.libc)
+        return _json
 
 
 class PlatformSystem:
