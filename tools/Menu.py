@@ -55,7 +55,7 @@ def ask_single(option:CCOption):
 
     if option.type.__str__() == CCOptionType.STRING.__str__():
         while True:
-            value = Prompt.ask(option.description, default=option.default)
+            value = Prompt.ask(option.description + '(*)' if option.required else '' , default=option.default)
             if not option.required or value:
                 break
     elif option.type.__str__() == CCOptionType.BOOLEAN.__str__():
