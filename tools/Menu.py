@@ -13,7 +13,7 @@ console = Console()
 # use a dict to collect all string bellow in this file
 # the left is the key with file name and short keyid of each string
 
-# display menu should input a list of options of MenuOption
+# display menu should input a list of options of MenuSelection
 def display_menu(name=i18n("Menu.title"), options:[MenuSelection]=None):
     # 创建一个表格以显示选项
     if options is None:

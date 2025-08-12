@@ -9,8 +9,8 @@ from rich.console import Console
 
 from tools.env import prepare_project
 from tools.i18n import i18n
-from tools.Menu.Menu import display_menu
-from tools.Menu.MenuOption import MenuOption
+from tools.Menu import display_menu
+from tools.MenuSelection import MenuSelection
 
 console = Console()
 
@@ -38,7 +38,7 @@ def cc_root_config_platform(input_platform: string = None):
         console.print(platform_help, style="bold")
         sys.exit(0)
 
-    options_form_json = [MenuOption(sys_opt['id'], sys_opt['title'], sys_opt['value'], sys_opt['comment']) for sys_opt
+    options_form_json = [MenuSelection(sys_opt['id'], sys_opt['title'], sys_opt['value'], sys_opt['comment']) for sys_opt
                          in valid_sys]
 
     selection = display_menu("Please select target system", options_form_json)
