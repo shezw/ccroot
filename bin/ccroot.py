@@ -1,0 +1,137 @@
+import sys
+import os
+import argparse
+from rich.console import Console
+
+# check the current python version is python3
+if sys.version_info[0] < 3:
+    print("CCRoot requires Python 3.x")
+    # run install.sh in the script directory
+    os.system("sh " + os.getenv("CCROOT_SCRIPTS_DIR") + "/install.sh")
+
+sys.path.append(os.getenv("CCROOT_DIR"))
+sys.path.append(os.getenv("CCROOT_TOOLS_DIR"))
+sys.path.append(os.getenv("CCROOT_SCRIPTS_DIR"))
+
+from tools.env import prepare_env
+
+prepare_env()
+
+from tools.config import cc_root_config
+from tools.i18n import i18n
+
+console = Console()
+
+# read command line arguments
+args = sys.argv
+parser = argparse.ArgumentParser(description=i18n("description"))
+
+
+# CCRoot supports commands:
+# init      [] initialize the project
+# config    [] set target platform and compiler tools etc.
+# search    [] search a package
+# add       [] add a package into libs
+# remove    [] remove a package from libs
+# build     [] build the specific package or all packages and the project source code
+# help      [] show help
+
+
+def cc_help():
+    if len(args) < 2 or (len(args) == 2 and args[1] == "help"):
+        console.print("CCRoot is a package manager for C/C++ projects.", style="bold")
+        console.print("Usage: 'ccroot {command} {--options}'", style="bold")
+        console.print("Commands:", style="bold")
+        console.print("  config    [] set target platform and compiler tools etc.", style="bold")
+        console.print("  search    [{lib}@{version}] search a package", style="bold")
+        console.print("  packages  [] show all packages added ", style="bold")
+        console.print("  add       [] add a package into libs", style="bold")
+        console.print("  remove    [] remove a package from libs", style="bold")
+        console.print("  build     [] build the specific package or all packages and the project source code", style="bold")
+        console.print("  help      [] show help", style="bold")
+        console.print("Run 'ccroot help {command}' for more information on a command.", style="bold")
+    elif len(args) == 3:
+        if args[2] == "config":
+            console.print("Usage: ccroot config {--options}", style="bold")
+            console.print("Options:", style="bold")
+            console.print("  --platform    [] set the target platform", style="bold")
+        elif args[2] == "init":
+            console.print("Usage: ccroot init", style="bold")
+        elif args[2] == "search":
+            console.print("Usage: ccroot search {lib}@{version}", style="bold")
+            console.print("Options:", style="bold")
+            console.print("  lib           [] the package name", style="bold")
+            console.print("  version       [] the package version", style="bold")
+        elif args[2] == "add":
+            console.print("Usage: ccroot add {lib}@{version}", style="bold")
+            console.print("Options:", style="bold")
+            console.print("  lib           [] the package name", style="bold")
+            console.print("  version       [] the package version", style="bold")
+        elif args[2] == "remove":
+            console.print("Usage: ccroot remove {lib}@{version}", style="bold")
+            console.print("Options:", style="bold")
+            console.print("  lib           [] the package name", style="bold")
+            console.print("  version       [] the package version", style="bold")
+        elif args[2] == "build":
+            console.print("Usage: ccroot build {lib}@{version}", style="bold")
+            console.print("Options:", style="bold")
+            console.print("  lib           [] the package name", style="bold")
+            console.print("  version       [] the package version", style="bold")
+        else:
+            cc_help()
+    sys.exit(0)
+
+
+# check if the command is valid
+if len(args) < 2:
+    cc_help()
+
+cc_command = args[1]
+
+# check if user is input at ccroot path
+# if yes, abort the command and suggest to use ccroot command in the project root path
+
+if os.path.basename(os.getcwd()) == "ccroot":
+    console.print("Please run the command in the project root path. ")
+    current_dir = os.getcwd()
+    console.print("Current Dir "+current_dir+" is not allowed.", style="bold")
+    sys.exit(0)
+
+
+if cc_command == "config":
+    cc_root_config()
+elif cc_command == "search":
+    from tools.packages import search_package
+
+    if len(args) < 3:
+        console.print("Please input the package name to search.", style="bold")
+        sys.exit(0)
+    package = search_package(search_package_name=args[2])
+    if package:
+        console.print("Package found: ", style="bold")
+        console.print(package, style="bold")
+
+elif cc_command == "packages":
+    from tools.packages import list_packages
+    list_packages()
+
+elif cc_command == "add":
+    from tools.packages import add_package, list_packages
+    if len(args) < 3:
+        console.print("Please input the package name to add.", style="bold")
+        sys.exit(0)
+    all_packages = add_package(args[2])
+    list_packages()
+elif cc_command == "remove":
+    from tools.packages import remove_package
+    if len(args) < 3:
+        console.print("Please input the package name to remove.", style="bold")
+        sys.exit(0)
+    remove_package(args[2])
+elif cc_command == "build":
+    print("build")
+elif cc_command == "web":
+    from tools.web import web_server
+    web_server()
+else:
+    cc_help()
