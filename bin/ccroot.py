@@ -48,6 +48,7 @@ def cc_help():
         console.print("  add       [] add a package into libs", style="bold")
         console.print("  remove    [] remove a package from libs", style="bold")
         console.print("  build     [] build the specific package or all packages and the project source code", style="bold")
+        console.print("  web       [] use web ui to manager your projects", style="bold")
         console.print("  help      [] show help", style="bold")
         console.print("Run 'ccroot help {command}' for more information on a command.", style="bold")
     elif len(args) == 3:
@@ -133,5 +134,8 @@ elif cc_command == "build":
 elif cc_command == "web":
     from tools.web import web_server
     web_server()
+elif cc_command == "web_build":
+    from tools.web import web_build
+    web_build()
 else:
     cc_help()

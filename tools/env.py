@@ -14,6 +14,7 @@ def prepare_env():
     CC_ROOT_HOST_DIR = CC_ROOT_DIR + "/host"
     CC_ROOT_BUILD_DIR = CC_ROOT_DIR + "/build"
     CC_ROOT_TARGET_DIR = CC_ROOT_DIR + "/target"
+    CC_ROOT_WEB_DIR = CC_ROOT_DIR + "/web"
 
     init_all_dirs = [
         CC_ROOT_DIR,
@@ -24,7 +25,8 @@ def prepare_env():
         CC_ROOT_PACKAGES_DIR,
         CC_ROOT_HOST_DIR,
         CC_ROOT_BUILD_DIR,
-        CC_ROOT_TARGET_DIR
+        CC_ROOT_TARGET_DIR,
+        CC_ROOT_WEB_DIR
     ]
 
     # export all CC_ROOT variables to the environment
@@ -37,6 +39,7 @@ def prepare_env():
     os.environ["CC_ROOT_HOST_DIR"] = CC_ROOT_HOST_DIR
     os.environ["CC_ROOT_BUILD_DIR"] = CC_ROOT_BUILD_DIR
     os.environ["CC_ROOT_TARGET_DIR"] = CC_ROOT_TARGET_DIR
+    os.environ["CC_ROOT_WEB_DIR"] = CC_ROOT_WEB_DIR
 
     for cc_root_directory in init_all_dirs:
         if not os.path.exists(cc_root_directory):
