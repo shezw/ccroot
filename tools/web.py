@@ -3,6 +3,8 @@ from tools.env import prepare_env, prepare_project
 # Set up the web server
 from flask import Flask, jsonify, send_from_directory
 
+from flask_cors import CORS
+
 import os
 import json
 import webbrowser
@@ -46,7 +48,7 @@ def web_build():
         print("Web source dir not found: " + web_src_dir)
         return
     print("Building web static files...")
-    os.system(f"cd {web_src_dir} && npm install && npm run build && cp -r {web_src_dir}/dist/* {web_static_dir}/app/")
+    os.system(f"cd {web_src_dir} && npm run build && cp -r {web_src_dir}/dist/* {web_static_dir}/app/")
 
 
 def web_server():
@@ -56,6 +58,7 @@ def web_server():
     web_static_dir = os.environ.get("CC_ROOT_WEB_DIR")
 
     app = Flask("cc_root_web_server")
+    CORS(app)  # 允许所有跨域请求
 
     @app.route('/assets/<path:filename>')
     def custom_static(filename):
@@ -98,6 +101,9 @@ def web_server():
             return jsonify({"error": "Toolchains directory not found"}), 404
         return jsonify(_toolchains)
 
+    @app.route('/api/getToolchains')
+    def get_toolchains():
+        return toolchains()
 
     @app.route('/docs')
     def docs():
