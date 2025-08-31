@@ -1,0 +1,13 @@
+{
+    "CC_PROJ_ROOT_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root",
+    "CC_PROJ_HOST_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root/host",
+    "CC_PROJ_HOST_BIN_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root/host/bin",
+    "CC_PROJ_HOST_LIB_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root/host/lib",
+    "CC_PROJ_HOST_INCLUDE_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root/host/include",
+    "CC_PROJ_BUILD_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root/build",
+    "CC_PROJ_TARGET_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root/target",
+    "CC_PROJ_TARGET_BIN_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root/target/bin",
+    "CC_PROJ_TARGET_LIB_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root/target/lib",
+    "CC_PROJ_TARGET_INCLUDE_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root/target/include",
+    "CC_PROJ_OUT_DIR": "/Volumes/disk-ultra/dev/c/ccroot/web/cc_root/out"
+}
