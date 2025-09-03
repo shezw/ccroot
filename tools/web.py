@@ -105,6 +105,28 @@ def web_server():
     def get_toolchains():
         return toolchains()
 
+    @app.route('/api/getProjects')
+    def get_project_list():
+        from tools.Database import get_cc_db
+        db = get_cc_db()
+        cursor = db.conn.cursor()
+        cursor.execute("SELECT * FROM projects")
+        rows = cursor.fetchall()
+        projects = []
+        for row in rows:
+            project = {
+                "id": row[0],
+                "name": row[1],
+                "path": row[2],
+                "options": json.loads(row[3]) if row[3] else [],
+                "libs": json.loads(row[4]) if row[4] else [],
+                "configs": json.loads(row[5]) if row[5] else [],
+                "version": row[6] if len(row) > 6 else "1.0.0",
+                "auto_version": row[7] if len(row) > 7 else False,
+            }
+            projects.append(project)
+        return jsonify(projects)
+
     @app.route('/docs')
     def docs():
         docs_path = os.path.join(os.environ.get("CC_ROOT_DIR", ""), "README.md")

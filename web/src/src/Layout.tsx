@@ -3,7 +3,8 @@ import {AppShell, Burger, Code, Group, Text} from "@mantine/core";
 import {Navbar} from "./NavBar";
 import {IconCircleDottedLetterC} from "@tabler/icons-react";
 import {CCToolPage, useCoreContext} from "./context/CoreContext";
-import {Toolchain} from "./Toolchains";
+import {Toolchain} from "./Pages/Toolchains";
+import {Projects} from "./Pages/Projects"
 
 export function Layout() {
     const [opened, { toggle }] = useDisclosure();
@@ -38,7 +39,7 @@ export function Layout() {
                 }
                 {
                     currentPage == CCToolPage.projects &&
-                    <Text>Projects</Text>
+                    <Projects/>
                 }
                 {
                     currentPage == CCToolPage.toolchains &&

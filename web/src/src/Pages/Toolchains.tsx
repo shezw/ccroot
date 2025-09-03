@@ -1,8 +1,8 @@
 import {Anchor, Group, Progress, Table, Text, Tree, TreeNodeData,RenderTreeNodePayload} from '@mantine/core';
 import { IconFolder, IconFolderOpen } from '@tabler/icons-react';
-import classes from './assets/css/Toolchain.module.css';
+import classes from '../assets/css/Toolchain.module.css';
 import {useEffect, useState} from "react";
-import {useCoreContext} from "./context/CoreContext";
+import {useCoreContext} from "../context/CoreContext";
 
 interface FileIconProps {
     name: string;

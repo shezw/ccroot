@@ -19,6 +19,8 @@ prepare_env()
 
 from tools.config import cc_root_config
 from tools.i18n import i18n
+from tools.Database import get_cc_db
+from tools.Project import has_project, init_project
 
 console = Console()
 
@@ -115,6 +117,15 @@ elif cc_command == "search":
 elif cc_command == "packages":
     from tools.packages import list_packages
     list_packages()
+
+elif cc_command == "init":
+    db = get_cc_db()
+    if has_project():
+        console.print("Project already initialized.", style="bold")
+        sys.exit(0)
+    else:
+        print("init from db" + db.db_file + " in " + os.getcwd())
+        init_project(os.getcwd())
 
 elif cc_command == "add":
     from tools.packages import add_package, list_packages

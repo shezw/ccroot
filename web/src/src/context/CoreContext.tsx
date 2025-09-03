@@ -26,8 +26,12 @@ export interface Hardware {
 }
 
 export interface Project {
+    id:number,
     name:string,
     path:string,
+    libs:[],
+    options:[],
+    configs:[],
     version:string,
     auto_version:number
 }
@@ -102,6 +106,7 @@ type CoreContextType =
     setCurrentPage: (page:CCToolPage)=>void
 
     projects: Project[]
+    refreshProjects: ()=>void
 
     toolchains: Toolchain[]
     refreshToolchains: ()=>void
@@ -111,6 +116,7 @@ const CoreContext = createContext<CoreContextType>({
     currentPage: CCToolPage.dashboard,
     setCurrentPage: ()=>{},
     projects:[],
+    refreshProjects:()=>{},
     toolchains:[],
     refreshToolchains:()=>{}
 });
@@ -134,10 +140,21 @@ export const CoreProvider = ({children} : {children: React.ReactNode}) => {
         })
     }
 
+    const refreshProjectsWithApi = ()=>{
+        fetchData('/api/getProjects').then(dt=>{
+            if (dt)
+            {
+                console.log("Projects get ok", dt)
+                setProjects(dt)
+            }
+        })
+    }
+
     const contextValue: CoreContextType = {
         currentPage:currentPage,
         setCurrentPage:setCurrentPage,
         projects: projects,
+        refreshProjects: refreshProjectsWithApi,
         toolchains: toolchains,
         refreshToolchains: refreshToolchainsWithApi
     }
